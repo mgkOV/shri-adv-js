@@ -21,6 +21,21 @@ function allKeysAndSymbols(obj) {
 ## in, который игнорирует свойства прототипа
 
 ```javascript
+const proto = { value: 42 };
+const object = Object.create(proto);
+
+Object.defineProperty(object, "year", {
+  value: 2020,
+  writable: true,
+  configurable: true,
+  enumerable: false
+});
+
+const symbol = Symbol("bazzinga");
+object[symbol] = 42;
+
+// реализация
+
 const handler = {
   has(target, name) {
     return target.hasOwnProperty(name);
