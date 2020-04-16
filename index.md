@@ -17,3 +17,15 @@ function allKeysAndSymbols(obj) {
   return [...new Set(allKeys)];
 }
 ```
+
+## in, который игнорирует свойства прототипа
+
+```javascript
+const handler = {
+  has(target, name) {
+    return target.hasOwnProperty(name);
+  }
+};
+
+const proxy = new Proxy(object, handler);
+```
