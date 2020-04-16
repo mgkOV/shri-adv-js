@@ -44,3 +44,20 @@ const handler = {
 
 const proxy = new Proxy(object, handler);
 ```
+
+## asyncExecutor
+
+```javascript
+function asyncExecutor(generator) {
+  const gen = generator();
+
+  const execute = (gen, data) => {
+    const { value, done } = gen.next(data);
+    if (done) return;
+
+    value.then((data) => execute(gen, data));
+  };
+
+  execute(gen);
+}
+```
