@@ -49,15 +49,14 @@ const proxy = new Proxy(object, handler);
 
 ```javascript
 function asyncExecutor(generator) {
-  const gen = generator();
+  execute(generator());
 
-  const execute = (gen, data) => {
+  function execute(gen, data) {
     const { value, done } = gen.next(data);
+
     if (done) return;
 
     value.then((data) => execute(gen, data));
-  };
-
-  execute(gen);
+  }
 }
 ```
